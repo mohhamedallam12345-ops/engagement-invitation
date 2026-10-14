@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mahmoud & Amira - Engagement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d2847 0%, #1e5a8e 50%, #2980b9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* ===== الورود المتحركة (خلفية) ===== */
+        .flower {
+            position: fixed;
+            font-size: 50px;
+            opacity: 0.5;
+            animation: floatFlower 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        @keyframes floatFlower {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-50px) rotate(15deg); opacity: 0.8; }
+        }
+
+        .flower1 { left: 2%; top: 10%; animation-delay: 0s; }
+        .flower2 { right: 3%; top: 15%; animation-delay: 1.5s; }
+        .flower3 { left: 5%; bottom: 12%; animation-delay: 3s; }
+        .flower4 { right: 5%; bottom: 8%; animation-delay: 2s; }
+        .flower5 { left: 45%; top: 5%; animation-delay: 1s; animation-duration: 10s; }
+        .flower6 { left: 15%; top: 45%; animation-delay: 2.5s; animation-duration: 9s; }
+        .flower7 { right: 15%; top: 55%; animation-delay: 0.8s; animation-duration: 7s; }
+        .flower8 { left: 2%; top: 60%; animation-delay: 3.5s; }
+        .flower9 { right: 2%; top: 40%; animation-delay: 1.2s; }
+
+        /* ورود ثابتة على الجانبين */
+        .side-flower-fixed {
+            position: fixed;
+            font-size: 60px;
+            opacity: 0.65;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .sf-left-top { left: 1%; top: 5%; }
+        .sf-left-mid { left: 0%; top: 50%; transform: translateY(-50%); }
+        .sf-left-bottom { left: 1%; bottom: 5%; }
+        .sf-right-top { right: 1%; top: 5%; }
+        .sf-right-mid { right: 0%; top: 50%; transform: translateY(-50%); }
+        .sf-right-bottom { right: 1%; bottom: 5%; }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            z-index: 10;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 35px;
+            box-shadow: 0 30px 120px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card.opened {
+            box-shadow: 0 30px 150px rgba(30, 90, 142, 0.6);
+        }
+
+        /* ===== صفحة الـ ENVELOPE - مستطيل واقف (طول اكبر من العرض) ===== */
+        .envelope {
+            background: linear-gradient(160deg, #0a1e35 0%, #123a5e 60%, #1e5a8e 100%);
+            padding: 60px 35px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3 / 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(41, 128, 185, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* القلب النابض */
+        .heart-beat {
+            font-size: 90px;
+            color: #ff5c7a;
+            margin-bottom: 25px;
+            animation: heartBounce 1.1s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 5px 15px rgba(255, 92, 122, 0.5));
+        }
+
+        @keyframes heartBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        .envelope-text {
+            font-family: 'Italianno', cursive;
+            color: #7ec8f2;
+            font-size: 46px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1.2s ease-out;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse-line {
+            width: 200px;
+            height: 40px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+            opacity: 0.85;
+            animation: fadeIn 1.5s ease-out 0.2s both;
+        }
+
+        .pulse-line svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pulse-path {
+            fill: none;
+            stroke: #7ec8f2;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawPulse 2.5s linear infinite;
+        }
+
+        @keyframes drawPulse {
+            0% { stroke-dashoffset: 300; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -300; }
+        }
+
+        .quote {
+            color: rgba(126, 200, 242, 0.9);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+            max-width: 340px;
+            animation: fadeIn 1.5s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #2980b9 0%, #1e5a8e 100%);
+            color: white;
+            border: 2px solid #7ec8f2;
+            padding: 16px 55px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(41, 128, 185, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 1.5s ease-out 0.6s both;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 45px rgba(41, 128, 185, 0.6);
+        }
+
+        .open-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* ===== صفحة المحتوى ===== */
+        .content {
+            padding: 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            max-height: 0;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg, #f4faff 0%, #eaf5fd 100%);
+        }
+
+        .content.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+            max-height: 5000px;
+            padding: 45px 30px 50px;
+        }
+
+        .side-roses {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .rose-corner {
+            position: absolute;
+            font-size: 70px;
+            opacity: 0.18;
+        }
+
+        .rose-mid {
+            position: absolute;
+            font-size: 45px;
+            opacity: 0.14;
+        }
+
+        .rose-tl { left: -10px; top: -10px; animation: floatRose 6s ease-in-out infinite; }
+        .rose-tr { right: -10px; top: 15%; animation: floatRose 6s ease-in-out infinite 1s; }
+        .rose-bl { left: -10px; bottom: 15%; animation: floatRose 6s ease-in-out infinite 2s; }
+        .rose-br { right: -10px; bottom: -10px; animation: floatRose 6s ease-in-out infinite 0.5s; }
+        .rose-m1 { left: -5px; top: 35%; animation: floatRose 6s ease-in-out infinite 1.5s; }
+        .rose-m2 { right: -5px; top: 45%; animation: floatRose 6s ease-in-out infinite 2.5s; }
+        .rose-m3 { left: 0px; bottom: 40%; animation: floatRose 6s ease-in-out infinite 0.8s; }
+        .rose-m4 { right: 0px; top: 5%; animation: floatRose 6s ease-in-out infinite 3s; }
+
+        @keyframes floatRose {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        .content-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* بسملة */
+        .basmala {
+            font-family: 'Amiri', serif;
+            font-size: 32px;
+            color: #1e5a8e;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out 0.1s both;
+        }
+
+        /* البرواز - برواز حيطة كلاسيكي مستطيل بالطول */
+        .frame-box {
+            border: 10px solid #1e5a8e;
+            border-image: linear-gradient(135deg, #2980b9, #0d2847, #2980b9) 1;
+            border-radius: 4px;
+            padding: 45px 20px;
+            margin: 0 auto 30px;
+            max-width: 260px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(41, 128, 185, 0.05) 0%, rgba(126, 200, 242, 0.1) 100%);
+            box-shadow:
+                0 0 0 3px #f4faff,
+                0 0 0 5px #2980b9,
+                inset 0 0 20px rgba(41, 128, 185, 0.15),
+                0 20px 50px rgba(13, 40, 71, 0.3);
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+        }
+
+        .frame-box::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1.5px solid rgba(41, 128, 185, 0.4);
+            pointer-events: none;
+        }
+
+        .frame-box::after {
+            content: '❖';
+            position: absolute;
+            color: #2980b9;
+            font-size: 18px;
+            bottom: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f4faff;
+            padding: 0 10px;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .names-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .name {
+            font-family: 'Italianno', cursive;
+            font-size: 54px;
+            font-weight: 700;
+            color: #0d2847;
+            line-height: 1;
+            animation: slideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 1px 1px 3px rgba(13, 40, 71, 0.15);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .ampersand {
+            color: #2980b9;
+            font-size: 30px;
+            font-family: 'Italianno', cursive;
+        }
+
+        .invitation-text {
+            color: #4a6b85;
+            font-size: 16px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+            font-weight: 500;
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        /* التاريخ - شكل كاليندر */
+        .calendar-box {
+            background: white;
+            border-radius: 18px;
+            width: 150px;
+            margin: 0 auto 30px;
+            box-shadow: 0 15px 40px rgba(30, 90, 142, 0.25);
+            overflow: hidden;
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
+            border: 1px solid rgba(41, 128, 185, 0.15);
+        }
+
+        .calendar-header {
+            background: linear-gradient(135deg, #2980b9 0%, #1e5a8e 100%);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 8px 0;
+            text-transform: uppercase;
+        }
+
+        .calendar-body {
+            padding: 14px 10px 16px;
+            position: relative;
+        }
+
+        .calendar-day-num {
+            font-size: 46px;
+            font-weight: 800;
+            color: #0d2847;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .calendar-weekday {
+            font-size: 12px;
+            color: #6b8caa;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-heart {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            color: #ff5c7a;
+            font-size: 18px;
+            animation: heartBounce 2.5s ease-in-out infinite;
+        }
+
+        /* الوقت */
+        .time-box {
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out 0.45s both;
+        }
+
+        .detail-label {
+            color: #2980b9;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .detail-value {
+            color: #0d2847;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* المكان */
+        .location-box {
+            background: linear-gradient(135deg, rgba(41, 128, 185, 0.08) 0%, rgba(126, 200, 242, 0.12) 100%);
+            border-radius: 18px;
+            padding: 22px 20px;
+            margin-bottom: 30px;
+            border: 1.5px solid rgba(41, 128, 185, 0.2);
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+        }
+
+        .location-note {
+            color: #4a6b85;
+            font-size: 13px;
+            margin-top: 6px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .message {
+            color: #1e5a8e;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 600;
+            animation: fadeIn 1s ease-out 0.55s both;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2980b9 0%, #1e5a8e 100%);
+            color: white;
+            border: 2px solid #2980b9;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 25px rgba(41, 128, 185, 0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(41, 128, 185, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2980b9;
+            border: 2px solid #2980b9;
+        }
+
+        .btn-secondary:hover {
+            background: #f4faff;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 35px;
+            left: 35px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #2980b9 0%, #1e5a8e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 12px 40px rgba(41, 128, 185, 0.4);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 20;
+            border: none;
+            color: white;
+            font-size: 26px;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .music-control:hover {
+            transform: scale(1.12);
+        }
+
+        .music-control.playing {
+            animation: musicPulse 0.8s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 12px 40px rgba(41, 128, 185, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 12px 50px rgba(41, 128, 185, 0.7); transform: scale(1.05); }
+        }
+
+        @media (max-width: 520px) {
+            .side-flower-fixed { font-size: 26px; opacity: 0.45; }
+            .flower { font-size: 22px; }
+            .envelope { padding: 40px 20px; min-height: 580px; aspect-ratio: auto; }
+            .envelope-text { font-size: 34px; }
+            .heart-beat { font-size: 65px; margin-bottom: 15px; }
+            .pulse-line { width: 160px; }
+            .quote { font-size: 12px; max-width: 280px; }
+            .open-btn { padding: 14px 40px; font-size: 13px; }
+            .content.show { padding: 35px 16px 35px; }
+            .basmala { font-size: 26px; margin-bottom: 20px; }
+            .frame-box { max-width: 220px; padding: 35px 14px; }
+            .name { font-size: 38px; }
+            .ampersand { font-size: 26px; }
+            .music-control { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 20px; }
+            .action-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+
+        @media (max-width: 360px) {
+            .side-flower-fixed { display: none; }
+            .flower5, .flower6, .flower7 { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ورود ثابتة على الجانبين -->
+    <div class="side-flower-fixed sf-left-top">🌹</div>
+    <div class="side-flower-fixed sf-left-mid">🌹</div>
+    <div class="side-flower-fixed sf-left-bottom">🌹</div>
+    <div class="side-flower-fixed sf-right-top">🌹</div>
+    <div class="side-flower-fixed sf-right-mid">🌹</div>
+    <div class="side-flower-fixed sf-right-bottom">🌹</div>
+
+    <!-- ورود متحركة عائمة -->
+    <div class="flower flower1">🌹</div>
+    <div class="flower flower2">🌹</div>
+    <div class="flower flower3">🌹</div>
+    <div class="flower flower4">🌹</div>
+    <div class="flower flower5">🌹</div>
+    <div class="flower flower6">🌹</div>
+    <div class="flower flower7">🌹</div>
+    <div class="flower flower8">🌹</div>
+    <div class="flower flower9">🌹</div>
+
+    <div class="container">
+        <div class="card" id="card">
+            <!-- صفحة Open - مستطيل واقف -->
+            <div class="envelope" id="envelope">
+                <div class="heart-beat">💙</div>
+                <div class="envelope-text">Open</div>
+                <div class="pulse-line">
+                    <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+                        <path class="pulse-path" d="M0,20 L40,20 L50,5 L60,35 L70,20 L85,20 L95,10 L105,30 L115,20 L200,20"/>
+                    </svg>
+                </div>
+                <div class="quote" dir="rtl">
+                    الحمدلله الذي يختار للقلوب ما يليق بها ، ويجبرها بعطائه حين تظن أن الجبر بعيد
+                </div>
+                <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
+            </div>
+
+            <!-- صفحة المحتوى -->
+            <div class="content" id="content">
+                <div class="side-roses">
+                    <div class="rose-corner rose-tl">🌹</div>
+                    <div class="rose-corner rose-tr">🌹</div>
+                    <div class="rose-corner rose-bl">🌹</div>
+                    <div class="rose-corner rose-br">🌹</div>
+                    <div class="rose-mid rose-m1">🌹</div>
+                    <div class="rose-mid rose-m2">🌹</div>
+                    <div class="rose-mid rose-m3">🌹</div>
+                    <div class="rose-mid rose-m4">🌹</div>
+                </div>
+
+                <div class="content-inner">
+                    <div class="basmala" dir="rtl">بسم الله الرحمن الرحيم</div>
+
+                    <div class="frame-box">
+                        <div class="names-row">
+                            <span class="name">Ahmed</span>
+                            <span class="ampersand">&amp;</span>
+                            <span class="name">Salma</span>
+                        </div>
+                    </div>
+
+                    <p class="invitation-text">
+                        We are honored to invite you to celebrate<br>
+                        our engagement with us
+                    </p>
+
+                    <div class="calendar-box">
+                        <div class="calendar-header">OCT</div>
+                        <div class="calendar-body">
+                            <div class="calendar-heart">💙</div>
+                            <div class="calendar-day-num">20</div>
+                            <div class="calendar-weekday">2026</div>
+                        </div>
+                    </div>
+
+                    <div class="time-box">
+                        <div class="detail-label">⏰ Time</div>
+                        <div class="detail-value">9:00 PM</div>
+                    </div>
+
+                    <div class="location-box">
+                        <div class="detail-label">📍 Location</div>
+                        <div class="detail-value" style="font-size: 18px;">ZAHRA VENUE</div>
+                        <div class="location-note" dir="rtl">طريق المحلة بعد قاعة الملكة</div>
+                    </div>
+
+                    <p class="message">✨ Your presence will make our day complete ✨</p>
+
+                    <div class="action-buttons">
+                        <button class="btn" onclick="saveToCalendar()">📅 Save Date</button>
+                        <button class="btn btn-secondary" onclick="shareInvitation()">📤 Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="music-control" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+        🎵
+    </button>
+
+    <!-- ضع ملف الصوت بجانب هذا الملف بنفس الاستضافة وسمّه audio.mp3 -->
+    <audio id="audio" loop preload="none">
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let isOpen = false;
+        let isPlaying = false;
+        const audio = document.getElementById('audio');
+        const musicBtn = document.getElementById('musicBtn');
+        const card = document.getElementById('card');
+        const content = document.getElementById('content');
+        const envelope = document.getElementById('envelope');
+
+        function openInvitation() {
+            if (!isOpen) {
+                isOpen = true;
+                card.classList.add('opened');
+                envelope.style.display = 'none';
+                content.classList.add('show');
+
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                }).catch(() => {
+                    console.log('Audio play blocked — user can tap the music button');
+                });
+            }
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicBtn.classList.remove('playing');
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                }).catch(() => {
+                    alert('Could not play audio. Make sure audio.mp3 is uploaded next to this page.');
+                });
+            }
+        }
+
+        function saveToCalendar() {
+            const eventTitle = 'Ahmed & Salma Engagement';
+            const eventDate = '20261020T210000';
+            const eventEndDate = '20261021T000000';
+            const description = 'Join us for our engagement celebration at ZAHRA VENUE';
+            const location = 'ZAHRA VENUE, طريق المحلة بعد قاعة الملكة';
+
+            const googleCalendarURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${eventDate}/${eventEndDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+
+            window.open(googleCalendarURL, '_blank');
+        }
+
+        function shareInvitation() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Ahmed & Salma - Engagement Invitation',
+                    text: 'Join us to celebrate our engagement! 💍',
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('✓ Invitation link copied to clipboard!\nShare it with your friends');
+                }).catch(() => {
+                    alert('Invitation link:\n' + url);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
